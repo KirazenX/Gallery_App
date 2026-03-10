@@ -12,21 +12,18 @@ use Illuminate\Support\Facades\Storage;
 
 class GalleryController extends Controller
 {
-    // Tampilkan semua foto
     public function index()
     {
         $fotos = Foto::with(['user', 'album', 'likes'])->latest()->paginate(12);
         return view('gallery.index', compact('fotos'));
     }
 
-    // Form tambah foto
     public function create()
     {
         $albums = Album::where('UserID', Auth::id())->get();
         return view('gallery.create', compact('albums'));
     }
 
-    // Simpan foto baru
     public function store(Request $request)
     {
         $request->validate([
@@ -50,7 +47,6 @@ class GalleryController extends Controller
         return redirect()->route('gallery.index')->with('success', 'Foto berhasil diunggah!');
     }
 
-    // Detail foto
     public function show($id)
     {
         $foto = Foto::with(['user', 'album', 'komentars.user', 'likes'])->findOrFail($id);
@@ -58,7 +54,6 @@ class GalleryController extends Controller
         return view('gallery.show', compact('foto', 'sudahLike'));
     }
 
-    // Form edit foto (hanya pemilik foto)
     public function edit($id)
     {
         $foto = Foto::where('FotoID', $id)->where('UserID', Auth::id())->firstOrFail();
@@ -66,7 +61,6 @@ class GalleryController extends Controller
         return view('gallery.edit', compact('foto', 'albums'));
     }
 
-    // Simpan perubahan foto
     public function update(Request $request, $id)
     {
         $foto = Foto::where('FotoID', $id)->where('UserID', Auth::id())->firstOrFail();
@@ -78,7 +72,6 @@ class GalleryController extends Controller
             'AlbumID'       => 'nullable|exists:gallery_album,AlbumID',
         ]);
 
-        // Ganti file foto jika ada upload baru
         if ($request->hasFile('foto')) {
             Storage::disk('public')->delete($foto->LokasiFile);
             $path = $request->file('foto')->store('fotos', 'public');
@@ -93,7 +86,6 @@ class GalleryController extends Controller
         return redirect()->route('gallery.show', $foto->FotoID)->with('success', 'Foto berhasil diperbarui!');
     }
 
-    // Hapus foto — HANYA ADMIN
     public function destroy($id)
     {
         $foto = Foto::findOrFail($id);
@@ -102,7 +94,6 @@ class GalleryController extends Controller
         return redirect()->route('gallery.index')->with('success', 'Foto berhasil dihapus.');
     }
 
-    // Tambah komentar
     public function komentar(Request $request, $id)
     {
         $request->validate(['IsiKomentar' => 'required|string|max:500']);
@@ -117,7 +108,6 @@ class GalleryController extends Controller
         return back()->with('success', 'Komentar ditambahkan.');
     }
 
-    // Toggle like
     public function like($id)
     {
         $existing = LikeFoto::where('FotoID', $id)->where('UserID', Auth::id())->first();

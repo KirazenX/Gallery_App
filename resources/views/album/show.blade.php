@@ -4,7 +4,6 @@
 
 @section('content')
 
-{{-- Header Album --}}
 <div class="card shadow-sm mb-4 border-0" style="background: linear-gradient(135deg, #667eea, #764ba2);">
     <div class="card-body p-4 text-white">
         <div class="d-flex justify-content-between align-items-start flex-wrap gap-3">
@@ -39,7 +38,6 @@
     </div>
 </div>
 
-{{-- Tombol Upload ke Album Ini --}}
 <div class="d-flex justify-content-between align-items-center mb-3">
     <h5 class="fw-bold mb-0">Foto dalam Album</h5>
     <a href="{{ route('gallery.create') }}?album={{ $album->AlbumID }}" class="btn btn-primary btn-sm">
@@ -47,7 +45,6 @@
     </a>
 </div>
 
-{{-- Grid Foto --}}
 @if($fotos->isEmpty())
     <div class="text-center py-5">
         <i class="fa fa-images fa-4x text-muted mb-3 d-block"></i>
@@ -81,7 +78,6 @@
                     </div>
                 </div>
 
-                {{-- Tombol Edit (pemilik) & Hapus (admin) --}}
                 @if($foto->UserID == Auth::id() || Auth::user()->isAdmin())
                 <div class="card-footer p-1 bg-transparent d-flex gap-1">
                     @if($foto->UserID == Auth::id())

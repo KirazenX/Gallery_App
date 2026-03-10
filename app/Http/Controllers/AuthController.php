@@ -14,7 +14,6 @@ class AuthController extends Controller
         return view('auth.login');
     }
 
-    // Proses login
 public function login(Request $request)
 {
     $request->validate([
@@ -27,7 +26,6 @@ public function login(Request $request)
     if ($user && Hash::check($request->Password, $user->Password)) {
         Auth::login($user);
 
-        // Redirect berdasarkan role
         if ($user->isAdmin()) {
             return redirect()->route('admin.dashboard')->with('success', 'Selamat datang, Admin!');
         }

@@ -17,7 +17,6 @@
 </head>
 <body>
 <div class="d-flex">
-    {{-- Sidebar --}}
     <div class="sidebar col-md-2 p-0">
         <div class="p-3 border-bottom border-secondary">
             <div class="brand"><i class="fa fa-images me-2"></i>Admin Panel</div>
@@ -46,7 +45,6 @@
         </nav>
     </div>
 
-    {{-- Main Content --}}
     <div class="col-md-10 p-4">
         <h4 class="fw-bold mb-4">Dashboard Admin</h4>
 
@@ -94,7 +92,6 @@
             </div>
         </div>
 
-        {{-- Foto Terbaru --}}
         <div class="card shadow-sm">
             <div class="card-header fw-semibold bg-white">
                 <i class="fa fa-clock me-1"></i>Foto Terbaru

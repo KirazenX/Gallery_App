@@ -60,7 +60,6 @@
 </nav>
 
 <div class="container mt-4">
-    {{-- Flash Messages --}}
     @if(session('success'))
         <div class="alert alert-success alert-dismissible fade show">
             <i class="fa fa-check-circle me-1"></i>{{ session('success') }}

@@ -37,7 +37,6 @@
                         </small>
                     </div>
                 </div>
-                {{-- Tombol edit hanya muncul jika foto milik user yang login --}}
 @if($foto->UserID == Auth::id())
 <div class="card-footer p-1 bg-transparent border-top-0">
     <a href="{{ route('gallery.edit', $foto->FotoID) }}" class="btn btn-sm btn-outline-warning w-100">
@@ -46,7 +45,6 @@
 </div>
 @endif
 
-{{-- Tombol hapus hanya untuk admin --}}
 @if(Auth::user()->isAdmin())
 <div class="card-footer p-1 bg-transparent border-top-0">
     <form action="{{ route('admin.fotos.destroy', $foto->FotoID) }}" method="POST"

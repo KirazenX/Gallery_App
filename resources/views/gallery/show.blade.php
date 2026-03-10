@@ -4,7 +4,6 @@
 
 @section('content')
 <div class="row g-4">
-    {{-- Kolom Foto --}}
     <div class="col-md-8">
         <div class="card shadow-sm">
             <img src="{{ Storage::url($foto->LokasiFile) }}"
@@ -23,7 +22,6 @@
                 </div>
             </div>
             <div class="card-footer d-flex gap-2 flex-wrap">
-    {{-- Like --}}
     <form action="{{ route('gallery.like', $foto->FotoID) }}" method="POST">
         @csrf
         <button class="btn btn-sm {{ $sudahLike ? 'btn-danger' : 'btn-outline-danger' }}">
@@ -32,14 +30,12 @@
         </button>
     </form>
 
-    {{-- Tombol Edit — hanya pemilik foto --}}
     @if($foto->UserID == Auth::id())
         <a href="{{ route('gallery.edit', $foto->FotoID) }}" class="btn btn-sm btn-warning text-white">
             <i class="fa fa-edit me-1"></i>Edit Foto
         </a>
     @endif
 
-    {{-- Tombol Hapus — HANYA ADMIN --}}
     @if(Auth::user()->isAdmin())
         <form action="{{ route('admin.fotos.destroy', $foto->FotoID) }}" method="POST"
               onsubmit="return confirm('Hapus foto ini?')">
@@ -57,7 +53,6 @@
         </div>
     </div>
 
-    {{-- Kolom Komentar --}}
     <div class="col-md-4">
         <div class="card shadow-sm">
             <div class="card-header fw-semibold bg-light">
